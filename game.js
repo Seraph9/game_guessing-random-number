@@ -8,9 +8,50 @@ function getRandomIntInclusive(min, max) {
 };
 
 let secretNumber = getRandomIntInclusive(0, 100);
-// console.log('My secret number: ', secretNumber);
+//console.log('My secret number: ', secretNumber);
 // console.log(typeof secretNumber);
 let guessTries = 4;
+
+let winner = `
+██╗░░░██╗░█████╗░██╗░░░██╗  ░██╗░░░░░░░██╗░█████╗░███╗░░██╗██╗
+╚██╗░██╔╝██╔══██╗██║░░░██║  ░██║░░██╗░░██║██╔══██╗████╗░██║██║
+░╚████╔╝░██║░░██║██║░░░██║  ░╚██╗████╗██╔╝██║░░██║██╔██╗██║██║
+░░╚██╔╝░░██║░░██║██║░░░██║  ░░████╔═████║░██║░░██║██║╚████║╚═╝
+░░░██║░░░╚█████╔╝╚██████╔╝  ░░╚██╔╝░╚██╔╝░╚█████╔╝██║░╚███║██╗
+░░░╚═╝░░░░╚════╝░░╚═════╝░  ░░░╚═╝░░░╚═╝░░░╚════╝░╚═╝░░╚══╝╚═╝
+`;
+
+let reward = `________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+___¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+_¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+¶¶¶¶______¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶_______¶¶¶¶
+¶¶¶_______¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶________¶¶¶
+¶¶________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶________¶¶¶
+¶¶¶_____¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶______¶¶¶
+¶¶¶____¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶____¶¶¶¶
+_¶¶¶___¶¶¶_¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶_¶¶¶____¶¶¶
+_¶¶¶¶___¶¶¶_¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶_¶¶¶¶__¶¶¶¶
+___¶¶¶¶__¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶_¶¶¶¶¶
+____¶¶¶¶¶¶¶¶_¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶_¶¶¶¶¶¶¶¶¶
+______¶¶¶¶¶¶__¶¶¶¶¶¶¶¶¶¶¶¶¶¶___¶¶¶¶¶¶
+_______________¶¶¶¶¶¶¶¶¶¶¶¶
+_________________¶¶¶¶¶¶¶¶
+___________________¶¶¶¶
+___________________¶¶¶¶
+___________________¶¶¶¶
+___________________¶¶¶¶
+_______________¶¶¶¶¶¶¶¶¶¶¶¶
+____________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+____________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+____________¶¶¶____________¶¶¶
+____________¶¶¶____________¶¶¶
+____________¶¶¶____________¶¶¶
+____________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+____________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+__________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+_________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+`;
 
 
 let welcome = 'Welcome to the classic Node CLI interactive \'Number Guessing Game\'!'
@@ -19,8 +60,6 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-
-
 
 function welcoming(welcome) {
     console.log(welcome);
@@ -45,6 +84,7 @@ function welcoming(welcome) {
                 console.log('That\'s correct! You guessed my secret number! Wow! Impressive...');
                 console.log('You won!');
                 console.log('You had ' + guessTries + ' guesses left.');
+
                 rl.close();
             } else if (guess < secretNumber) {
 
@@ -77,6 +117,8 @@ function welcoming(welcome) {
             console.log('That\'s correct! You guessed my secret number! Wow! Impressive...');
             console.log('You won!');
             console.log('You had ' + guessTries + ' guesses left.');
+            console.log(winner);
+            console.log(reward);
             rl.close();
         } else if (guess < secretNumber) {
 
